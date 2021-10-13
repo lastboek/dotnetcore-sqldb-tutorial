@@ -29,9 +29,14 @@ namespace DotNetCoreSqlDb
         {
             services.AddControllersWithViews();
             services.AddDbContext<MyDatabaseContext>(options =>
-                    options.UseSqlite("Data Source=localdatabase.db"));
-        }
+                    options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+            // The following line enables Application Insights telemetry collection.
+            services.AddApplicationInsightsTelemetry();
 
+            // This code adds other services for your application.
+            services.AddMvc();
+        }
+       
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
